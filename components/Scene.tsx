@@ -225,34 +225,30 @@ export default function Scene() {
   const [reduced, setReduced] = useState(false);
 
   useEffect(() => {
-    setProfile(window.innerWidth < 768 ? "mobile" : "desktop");
+    setProfile(window.innerWidth < 900 ? "mobile" : "desktop");
     setReduced(
       window.matchMedia("(prefers-reduced-motion: reduce)").matches,
     );
   }, []);
 
-  // evita render hasta saber el tamano de pantalla
-  if (profile === null || reduced) return null;
-
-  const isMobile = profile === "mobile";
+  // En movil y con movimiento reducido no montamos WebGL:
+  // el costo de fillrate hace que el scroll se trabe.
+  if (profile === null || reduced || profile === "mobile") return null;
 
   return (
     <Canvas
-      camera={{ position: [0, 0, isMobile ? 11 : 9.5], fov: 46 }}
-      dpr={isMobile ? [1, 1.4] : [1, 1.75]}
+      camera={{ position: [0, 0, 9.5], fov: 46 }}
+      dpr={[1, 1.75]}
       gl={{
-        antialias: !isMobile,
+        antialias: true,
         alpha: true,
         powerPreference: "high-performance",
       }}
       style={{ pointerEvents: "none" }}
     >
-      <Network
-        nodeCount={isMobile ? 48 : 90}
-        linkDistance={isMobile ? 1.75 : 1.45}
-      />
+      <Network nodeCount={90} linkDistance={1.45} />
       <Core />
-      <Rings segments={isMobile ? 64 : 128} />
+      <Rings segments={128} />
     </Canvas>
   );
 }

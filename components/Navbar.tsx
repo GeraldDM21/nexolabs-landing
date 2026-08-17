@@ -25,7 +25,7 @@ export default function Navbar() {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "border-b border-white/[0.07] bg-ink-950/75 backdrop-blur-xl"
+          ? "border-b border-white/[0.07] bg-ink-950/95 lg:bg-ink-950/75 lg:backdrop-blur-xl"
           : "border-b border-transparent"
       }`}
     >
@@ -96,7 +96,7 @@ export default function Navbar() {
       />
 
       {menuOpen && (
-        <div className="border-t border-white/5 bg-ink-950/95 px-6 py-5 backdrop-blur-xl lg:hidden">
+        <div className="border-t border-white/5 bg-ink-950 px-6 py-5 lg:hidden">
           <div className="flex flex-col gap-5">
             {t.nav.map((link) => (
               <a

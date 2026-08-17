@@ -32,7 +32,8 @@ export function useReveal<T extends HTMLElement = HTMLDivElement>(
   return ref;
 }
 
-/* Tilt 3D que sigue al cursor sobre una tarjeta */
+/* Tilt 3D que sigue al cursor sobre una tarjeta.
+   Solo se activa con puntero fino (mouse): en tactil no aplica. */
 export function useTilt<T extends HTMLElement = HTMLDivElement>(
   strength = 9,
 ): React.RefObject<T> {
@@ -42,6 +43,7 @@ export function useTilt<T extends HTMLElement = HTMLDivElement>(
     const el = ref.current;
     if (!el) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
 
     const onMove = (e: MouseEvent) => {
       const r = el.getBoundingClientRect();
@@ -66,16 +68,35 @@ export function useTilt<T extends HTMLElement = HTMLDivElement>(
   return ref;
 }
 
-/* Progreso de scroll 0..1 de toda la pagina */
+/* Progreso de scroll 0..1 de toda la pagina.
+   Actualiza dentro de requestAnimationFrame y solo cuando el valor
+   cambia lo suficiente, para no re-renderizar en cada evento. */
 export function useScrollProgress(): number {
   const [p, setP] = useState(0);
 
   useEffect(() => {
-    const onScroll = () => {
+    let ticking = false;
+    let last = 0;
+
+    const update = () => {
       const h = document.documentElement.scrollHeight - window.innerHeight;
-      setP(h > 0 ? window.scrollY / h : 0);
+      const next = h > 0 ? window.scrollY / h : 0;
+
+      if (Math.abs(next - last) > 0.004) {
+        last = next;
+        setP(next);
+      }
+      ticking = false;
     };
-    onScroll();
+
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    };
+
+    update();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);

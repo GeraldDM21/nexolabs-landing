@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { waLink } from "./config";
 import { useI18n } from "./i18n";
 import { Reveal } from "./ui";
+import StaticNetwork from "./StaticNetwork";
 import { WhatsAppIcon } from "./WhatsAppIcon";
 
 const Scene = dynamic(() => import("./Scene"), { ssr: false });
@@ -16,17 +17,23 @@ export default function Hero() {
       id="top"
       className="noise relative min-h-[100svh] overflow-hidden px-6 pb-24 pt-36 lg:px-10"
     >
-      <div className="absolute inset-0 z-0">
+      {/* capa 3D solo en escritorio */}
+      <div className="absolute inset-0 z-0 hidden lg:block">
         <Scene />
+      </div>
+
+      {/* version estatica en movil */}
+      <div className="absolute inset-x-0 top-24 z-0 mx-auto h-[380px] w-full max-w-md opacity-60 lg:hidden">
+        <StaticNetwork />
       </div>
 
       <div className="grid-fade pointer-events-none absolute inset-0 z-[1]" />
       <div
-        className="pointer-events-none absolute -top-32 left-1/2 z-[1] h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-brand-500/10 blur-[160px]"
+        className="pointer-events-none absolute -top-32 left-1/2 z-[1] h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-brand-500/10 blur-[90px] lg:h-[600px] lg:w-[600px] lg:blur-[160px]"
         aria-hidden
       />
       <div
-        className="pointer-events-none absolute bottom-0 right-1/4 z-[1] h-[420px] w-[420px] rounded-full bg-iris-500/10 blur-[150px]"
+        className="pointer-events-none absolute bottom-0 right-1/4 z-[1] hidden h-[420px] w-[420px] rounded-full bg-iris-500/10 blur-[150px] lg:block"
         aria-hidden
       />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-40 bg-gradient-to-t from-ink-950 to-transparent" />

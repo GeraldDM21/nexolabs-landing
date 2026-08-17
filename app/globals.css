@@ -90,6 +90,21 @@ body {
   backdrop-filter: blur(12px);
 }
 
+/* En pantallas chicas el desenfoque de fondo es lo que mas traba el
+   scroll: hay muchas tarjetas .glass a la vez y cada una obliga al
+   navegador a recomponer lo que tiene detras. Lo cambiamos por un
+   color solido, que se ve practicamente igual sobre fondo oscuro. */
+@media (max-width: 1023px) {
+  .glass {
+    background: rgba(255, 255, 255, 0.035);
+    backdrop-filter: none;
+  }
+
+  .noise::after {
+    display: none;
+  }
+}
+
 .hairline {
   background: linear-gradient(
     90deg,
@@ -107,7 +122,6 @@ body {
   transition:
     opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
     transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
 }
 .reveal.is-visible {
   opacity: 1;
