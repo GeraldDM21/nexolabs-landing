@@ -6,9 +6,8 @@ export const BRAND = "NEXOLABS";
 export const SITE_URL = "https://nexolabs.tech";
 export const CONTACT_EMAIL = "contacto@nexolabs.tech";
 
-/* WhatsApp — cambiar por el numero real.
-   Formato internacional, sin + ni espacios. Costa Rica = 506. */
-export const WHATSAPP_NUMBER = "50600000000";
+/* WhatsApp — formato internacional, sin + ni espacios. Costa Rica = 506. */
+export const WHATSAPP_NUMBER = "50688028339";
 
 export function waLink(message: string) {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
