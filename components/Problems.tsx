@@ -1,7 +1,11 @@
-import { PROBLEMS } from "./content";
+"use client";
+
+import { useI18n } from "./i18n";
 import { Eyebrow, Reveal, TiltCard } from "./ui";
 
 export default function Problems() {
+  const { t } = useI18n();
+
   return (
     <section
       id="problema"
@@ -10,18 +14,18 @@ export default function Problems() {
       <div className="mx-auto max-w-7xl">
         <Reveal>
           <div className="max-w-2xl">
-            <Eyebrow>El problema</Eyebrow>
+            <Eyebrow>{t.problems.eyebrow}</Eyebrow>
             <h2 className="mt-6 text-3xl font-semibold leading-tight tracking-tightest text-white sm:text-[2.6rem]">
-              El negocio funciona, pero todo depende de manos disponibles
+              {t.problems.title}
             </h2>
           </div>
         </Reveal>
 
         <div className="mt-16 grid gap-5 md:grid-cols-3">
-          {PROBLEMS.map((item, i) => (
+          {t.problems.items.map((item, i) => (
             <Reveal key={item.title} delay={i * 110}>
               <TiltCard className="h-full" strength={7}>
-                <article className="glass group h-full rounded-2xl p-8 transition-colors duration-500 hover:border-white/[0.16]">
+                <article className="glass h-full rounded-2xl p-8 transition-colors duration-500 hover:border-white/[0.16]">
                   <span className="font-mono text-xs text-slate-600">
                     {String(i + 1).padStart(2, "0")}
                   </span>

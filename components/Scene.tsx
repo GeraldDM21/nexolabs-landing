@@ -1,26 +1,25 @@
 "use client";
 
-import { useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 
 /* ------------------------------------------------------------------ */
 /*  Red de nodos: representa el agente conectado a sistemas del negocio */
+/*  En pantallas chicas se reduce la densidad para no cargar el celular */
 /* ------------------------------------------------------------------ */
 
-const NODE_COUNT = 90;
-const LINK_DISTANCE = 1.45;
 const RADIUS = 3.6;
 
-function useNetwork() {
+function useNetwork(nodeCount: number, linkDistance: number) {
   return useMemo(() => {
-    const positions = new Float32Array(NODE_COUNT * 3);
-    const seeds = new Float32Array(NODE_COUNT);
+    const positions = new Float32Array(nodeCount * 3);
+    const seeds = new Float32Array(nodeCount);
     const pts: THREE.Vector3[] = [];
 
     // distribucion tipo fibonacci sphere, mas pareja que random
-    for (let i = 0; i < NODE_COUNT; i++) {
-      const y = 1 - (i / (NODE_COUNT - 1)) * 2;
+    for (let i = 0; i < nodeCount; i++) {
+      const y = 1 - (i / (nodeCount - 1)) * 2;
       const r = Math.sqrt(Math.max(0, 1 - y * y));
       const theta = Math.PI * (3 - Math.sqrt(5)) * i;
       const jitter = 0.82 + Math.random() * 0.3;
@@ -40,21 +39,29 @@ function useNetwork() {
 
     // aristas entre nodos cercanos
     const linkPairs: number[] = [];
-    for (let i = 0; i < NODE_COUNT; i++) {
-      for (let j = i + 1; j < NODE_COUNT; j++) {
-        if (pts[i].distanceTo(pts[j]) < LINK_DISTANCE) linkPairs.push(i, j);
+    for (let i = 0; i < nodeCount; i++) {
+      for (let j = i + 1; j < nodeCount; j++) {
+        if (pts[i].distanceTo(pts[j]) < linkDistance) linkPairs.push(i, j);
       }
     }
 
     return { positions, seeds, linkPairs, basePts: pts };
-  }, []);
+  }, [nodeCount, linkDistance]);
 }
 
-function Network() {
+function Network({
+  nodeCount,
+  linkDistance,
+}: {
+  nodeCount: number;
+  linkDistance: number;
+}) {
   const group = useRef<THREE.Group>(null);
-  const pointsRef = useRef<THREE.Points>(null);
   const linesRef = useRef<THREE.LineSegments>(null);
-  const { positions, seeds, linkPairs, basePts } = useNetwork();
+  const { positions, seeds, linkPairs, basePts } = useNetwork(
+    nodeCount,
+    linkDistance,
+  );
   const { viewport } = useThree();
 
   const linePositions = useMemo(
@@ -82,14 +89,13 @@ function Network() {
     if (group.current) {
       group.current.rotation.y = t * 0.075;
       group.current.rotation.x = Math.sin(t * 0.22) * 0.12;
-      // parallax suave hacia el cursor
       group.current.position.x += (mx - group.current.position.x) * 0.045;
       group.current.position.y += (my - group.current.position.y) * 0.045;
     }
 
     // respiracion de los nodos
     const pos = pointGeo.attributes.position.array as Float32Array;
-    for (let i = 0; i < NODE_COUNT; i++) {
+    for (let i = 0; i < nodeCount; i++) {
       const base = basePts[i];
       const breathe = 1 + Math.sin(t * 0.85 + seeds[i]) * 0.045;
       pos[i * 3] = base.x * breathe;
@@ -126,7 +132,7 @@ function Network() {
         />
       </lineSegments>
 
-      <points ref={pointsRef} geometry={pointGeo}>
+      <points geometry={pointGeo}>
         <pointsMaterial
           color="#7dd3fc"
           size={0.075}
@@ -183,7 +189,7 @@ function Core() {
 
 /* --------------------------- anillos orbitales --------------------- */
 
-function Rings() {
+function Rings({ segments }: { segments: number }) {
   const g = useRef<THREE.Group>(null);
 
   useFrame((state) => {
@@ -198,7 +204,7 @@ function Rings() {
     <group ref={g}>
       {[2.4, 3.2, 4.1].map((r, i) => (
         <mesh key={r} rotation={[0, 0, (i * Math.PI) / 5]}>
-          <torusGeometry args={[r, 0.006, 8, 128]} />
+          <torusGeometry args={[r, 0.006, 8, segments]} />
           <meshBasicMaterial
             color={i === 1 ? "#818cf8" : "#38bdf8"}
             transparent
@@ -215,16 +221,38 @@ function Rings() {
 /* ------------------------------ export ----------------------------- */
 
 export default function Scene() {
+  const [profile, setProfile] = useState<"mobile" | "desktop" | null>(null);
+  const [reduced, setReduced] = useState(false);
+
+  useEffect(() => {
+    setProfile(window.innerWidth < 768 ? "mobile" : "desktop");
+    setReduced(
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+    );
+  }, []);
+
+  // evita render hasta saber el tamano de pantalla
+  if (profile === null || reduced) return null;
+
+  const isMobile = profile === "mobile";
+
   return (
     <Canvas
-      camera={{ position: [0, 0, 9.5], fov: 46 }}
-      dpr={[1, 1.75]}
-      gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+      camera={{ position: [0, 0, isMobile ? 11 : 9.5], fov: 46 }}
+      dpr={isMobile ? [1, 1.4] : [1, 1.75]}
+      gl={{
+        antialias: !isMobile,
+        alpha: true,
+        powerPreference: "high-performance",
+      }}
       style={{ pointerEvents: "none" }}
     >
-      <Network />
+      <Network
+        nodeCount={isMobile ? 48 : 90}
+        linkDistance={isMobile ? 1.75 : 1.45}
+      />
       <Core />
-      <Rings />
+      <Rings segments={isMobile ? 64 : 128} />
     </Canvas>
   );
 }

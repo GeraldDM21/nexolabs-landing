@@ -1,7 +1,11 @@
-import { CAPABILITIES } from "./content";
+"use client";
+
+import { useI18n } from "./i18n";
 import { Eyebrow, Reveal } from "./ui";
 
 export default function Capabilities() {
+  const { t } = useI18n();
+
   return (
     <section
       id="capacidades"
@@ -10,15 +14,15 @@ export default function Capabilities() {
       <div className="mx-auto max-w-7xl">
         <Reveal>
           <div className="max-w-2xl">
-            <Eyebrow>Capacidades</Eyebrow>
+            <Eyebrow>{t.capabilities.eyebrow}</Eyebrow>
             <h2 className="mt-6 text-3xl font-semibold leading-tight tracking-tightest text-white sm:text-[2.6rem]">
-              Que puede hacer el agente
+              {t.capabilities.title}
             </h2>
           </div>
         </Reveal>
 
         <div className="mt-16 grid gap-x-12 gap-y-14 md:grid-cols-3">
-          {CAPABILITIES.map((block, i) => (
+          {t.capabilities.groups.map((block, i) => (
             <Reveal key={block.group} delay={i * 110}>
               <div>
                 <div className="flex items-baseline gap-3">

@@ -1,45 +1,41 @@
+"use client";
+
+import { useI18n } from "./i18n";
+import { Eyebrow, Reveal } from "./ui";
+
 export default function Ads() {
-  const steps = [
-    "Manda dos fotos del producto por WhatsApp",
-    "El agente arma la pieza promocional",
-    "La revisas y aprobas",
-    "Sale a toda tu base de clientes",
-  ];
+  const { t } = useI18n();
 
   return (
-    <section className="border-t border-white/5 px-6 py-24">
-      <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-2 lg:items-center">
-        <div>
-          <p className="text-xs font-medium uppercase tracking-[0.25em] text-brand-400">
-            Extra
-          </p>
-          <h2 className="mt-4 text-3xl font-semibold text-white sm:text-4xl">
-            Publicidad que se arma sola
-          </h2>
-          <p className="mt-5 leading-relaxed text-slate-400">
-            El dueno manda un par de fotos y dice que quiere promocionar. El
-            agente genera la imagen, la deja lista para revision y, una vez
-            aprobada, la manda a todos los clientes registrados en la base.
-          </p>
-          <p className="mt-4 leading-relaxed text-slate-400">
-            Una campana pasa de tomar medio dia a tomar unos minutos, sin
-            contratar disenador.
-          </p>
-        </div>
+    <section className="border-t border-white/[0.06] px-6 py-28 lg:px-10">
+      <div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-2 lg:items-center">
+        <Reveal>
+          <div>
+            <Eyebrow>{t.ads.eyebrow}</Eyebrow>
+            <h2 className="mt-6 text-3xl font-semibold leading-tight tracking-tightest text-white sm:text-[2.6rem]">
+              {t.ads.title}
+            </h2>
+            <p className="mt-6 text-[16px] leading-relaxed text-slate-400">
+              {t.ads.bodyA}
+            </p>
+            <p className="mt-4 text-[16px] leading-relaxed text-slate-400">
+              {t.ads.bodyB}
+            </p>
+          </div>
+        </Reveal>
 
-        <ol className="space-y-3">
-          {steps.map((step, i) => (
-            <li
-              key={step}
-              className="flex items-center gap-4 rounded-xl border border-white/8 bg-white/[0.03] px-5 py-4"
-            >
-              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-500/15 font-mono text-sm text-brand-400">
-                {i + 1}
-              </span>
-              <span className="text-sm text-slate-300">{step}</span>
-            </li>
+        <div className="space-y-3">
+          {t.ads.steps.map((step, i) => (
+            <Reveal key={step} delay={i * 110}>
+              <div className="glass group flex items-center gap-5 rounded-xl px-6 py-5 transition-colors hover:border-white/[0.16]">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-500/[0.12] font-mono text-[13px] text-brand-400 transition-transform group-hover:scale-110">
+                  {i + 1}
+                </span>
+                <span className="text-[14.5px] text-slate-300">{step}</span>
+              </div>
+            </Reveal>
           ))}
-        </ol>
+        </div>
       </div>
     </section>
   );

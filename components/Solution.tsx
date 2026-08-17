@@ -1,7 +1,11 @@
-import { PILLARS } from "./content";
+"use client";
+
+import { useI18n } from "./i18n";
 import { Eyebrow, Reveal, TiltCard } from "./ui";
 
 export default function Solution() {
+  const { t } = useI18n();
+
   return (
     <section
       id="solucion"
@@ -15,19 +19,18 @@ export default function Solution() {
       <div className="relative mx-auto max-w-7xl">
         <Reveal>
           <div className="max-w-2xl">
-            <Eyebrow>La solucion</Eyebrow>
+            <Eyebrow>{t.solution.eyebrow}</Eyebrow>
             <h2 className="mt-6 text-3xl font-semibold leading-tight tracking-tightest text-white sm:text-[2.6rem]">
-              Un solo agente que se encarga de cuatro frentes
+              {t.solution.title}
             </h2>
             <p className="mt-5 text-[16px] leading-relaxed text-slate-400">
-              No es un chatbot que responde preguntas. Es un modelo conectado a
-              tus herramientas, con permiso para ejecutar tareas reales.
+              {t.solution.body}
             </p>
           </div>
         </Reveal>
 
         <div className="mt-16 grid gap-5 lg:grid-cols-2">
-          {PILLARS.map((pillar, i) => (
+          {t.solution.pillars.map((pillar, i) => (
             <Reveal key={pillar.title} delay={i * 100}>
               <TiltCard className="h-full" strength={6}>
                 <article className="glass group relative h-full overflow-hidden rounded-2xl p-9 transition-colors duration-500 hover:border-brand-500/30">
