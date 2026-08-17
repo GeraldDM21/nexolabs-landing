@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { SITE_URL } from "@/components/config";
 import "./globals.css";
 
@@ -56,7 +57,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es">
-      <body className="bg-ink-950">{children}</body>
+      <body className="bg-ink-950">
+        {children}
+        <SpeedInsights />
+      </body>
     </html>
   );
 }
