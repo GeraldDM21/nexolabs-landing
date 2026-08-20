@@ -3,7 +3,10 @@
 /* ------------------------------------------------------------------ */
 
 export const BRAND = "NEXOLABS";
-export const SITE_URL = "https://nexolabs.tech";
+/* El dominio canonico incluye www: Vercel redirige nexolabs.tech hacia
+   www.nexolabs.tech, asi que si aqui ponemos la version sin www, Google
+   ve una URL canonica que redirige y no la indexa. */
+export const SITE_URL = "https://www.nexolabs.tech";
 export const CONTACT_EMAIL = "contacto@nexolabs.tech";
 
 /* WhatsApp — formato internacional, sin + ni espacios. Costa Rica = 506. */

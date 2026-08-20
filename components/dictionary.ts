@@ -30,7 +30,7 @@ export const dict = {
       titleB: "vende y",
       titleAccent: "despacha por ti",
       body: "Automatizamos la atención y las ventas de tu negocio con agentes de IA conectados a WhatsApp, a tu inventario y a tu punto de venta. Contestan chats, arman órdenes, coordinan entregas, generan reportes y gestionan turnos, sin que nadie tenga que estar pendiente.",
-      ctaPrimary: "Probar el agente ahora",
+      ctaPrimary: "Contáctenos",
       ctaSecondary: "Ver cómo funciona",
       note: "Te contesta el mismo agente que trabajaría en tu negocio",
       metrics: [
@@ -301,7 +301,7 @@ export const dict = {
       waTitle: "¿Prefieres verlo funcionando?",
       waBody:
         "Escríbenos por WhatsApp y te atiende el mismo agente que trabajaría en tu negocio. El chat es la demo.",
-      waCta: "Probar el agente",
+      waCta: "Contáctenos",
       emailLabel: "También por correo:",
     },
 
@@ -395,7 +395,7 @@ export const dict = {
       titleB: "sells and",
       titleAccent: "ships for you",
       body: "We automate your business's customer service and sales with AI agents wired into WhatsApp, your inventory and your point of sale. They answer chats, create orders, coordinate deliveries, generate reports and manage shifts, without anyone having to keep watch.",
-      ctaPrimary: "Try the agent now",
+      ctaPrimary: "Contact us",
       ctaSecondary: "See how it works",
       note: "You'll be talking to the same agent that would work in your business",
       metrics: [
@@ -654,7 +654,7 @@ export const dict = {
       waTitle: "Rather see it working?",
       waBody:
         "Message us on WhatsApp and you'll be answered by the same agent that would work in your business. The chat is the demo.",
-      waCta: "Try the agent",
+      waCta: "Contact us",
       emailLabel: "Or by email:",
     },
 
