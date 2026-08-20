@@ -115,13 +115,15 @@ body {
   height: 1px;
 }
 
-/* ---------- reveal on scroll ---------- */
+/* ---------- reveal on scroll ----------
+   Solo para secciones por debajo del pliegue, donde no afecta metricas
+   de carga. */
 .reveal {
   opacity: 0;
   transform: translateY(26px);
   transition:
-    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .reveal.is-visible {
   opacity: 1;
@@ -129,28 +131,26 @@ body {
 }
 
 /* ---------- entrada del hero ----------
-   Animacion CSS pura: arranca con el primer pintado y no depende de
-   que React hidrate. El contenido sobre el pliegue nunca debe esperar
-   al JavaScript para hacerse visible. */
+   El contenido sobre el pliegue NO se anima en opacidad: un elemento
+   con opacity 0 no cuenta como contenido pintado, y eso retrasa el LCP.
+   Solo desplazamiento vertical, corto, y sin escalonar demasiado. */
 @keyframes riseIn {
   from {
-    opacity: 0;
-    transform: translateY(22px);
+    transform: translateY(14px);
   }
   to {
-    opacity: 1;
     transform: none;
   }
 }
 
 .rise {
-  animation: riseIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: riseIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
-.rise-1 { animation-delay: 0.06s; }
-.rise-2 { animation-delay: 0.14s; }
-.rise-3 { animation-delay: 0.22s; }
-.rise-4 { animation-delay: 0.3s; }
-.rise-5 { animation-delay: 0.38s; }
+.rise-1 { animation-delay: 0.03s; }
+.rise-2 { animation-delay: 0.06s; }
+.rise-3 { animation-delay: 0.09s; }
+.rise-4 { animation-delay: 0.12s; }
+.rise-5 { animation-delay: 0.15s; }
 
 /* ---------- 3D tilt ---------- */
 .tilt {
