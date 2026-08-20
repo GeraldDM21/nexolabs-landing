@@ -4,7 +4,6 @@ import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { waLink } from "./config";
 import { useI18n } from "./i18n";
-import { Reveal } from "./ui";
 import StaticNetwork from "./StaticNetwork";
 import { WhatsAppIcon } from "./WhatsAppIcon";
 
@@ -87,64 +86,54 @@ export default function Hero() {
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-40 bg-gradient-to-t from-ink-950 to-transparent" />
 
       <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center text-center">
-        <Reveal>
-          <span className="glass inline-flex items-center gap-2.5 rounded-full px-4 py-2 text-[11px] font-medium uppercase tracking-[0.18em] text-slate-300">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-            {t.hero.badge}
-          </span>
-        </Reveal>
+        <span className="rise glass inline-flex items-center gap-2.5 rounded-full px-4 py-2 text-[11px] font-medium uppercase tracking-[0.18em] text-slate-300">
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+          {t.hero.badge}
+        </span>
 
-        <Reveal delay={90}>
-          <h1 className="mt-9 text-[2.6rem] font-semibold leading-[1.06] tracking-tightest text-white sm:text-6xl lg:text-[4.4rem]">
-            {t.hero.titleA}
-            <br />
-            {t.hero.titleB}{" "}
-            <span className="text-gradient">{t.hero.titleAccent}</span>
-          </h1>
-        </Reveal>
+        <h1 className="rise rise-1 mt-9 text-[2.6rem] font-semibold leading-[1.06] tracking-tightest text-white sm:text-6xl lg:text-[4.4rem]">
+          {t.hero.titleA}
+          <br />
+          {t.hero.titleB}{" "}
+          <span className="text-gradient">{t.hero.titleAccent}</span>
+        </h1>
 
-        <Reveal delay={180}>
-          <p className="mx-auto mt-7 max-w-xl text-[17px] leading-relaxed text-slate-400">
-            {t.hero.body}
-          </p>
-        </Reveal>
+        <p className="rise rise-2 mx-auto mt-7 max-w-xl text-[17px] leading-relaxed text-slate-400">
+          {t.hero.body}
+        </p>
 
-        <Reveal delay={260}>
-          <div className="mt-11 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <a
-              href={waLink(t.wa.demo)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex w-full items-center justify-center gap-2.5 rounded-full bg-[#25D366] px-8 py-4 text-sm font-medium text-[#052e16] transition-transform hover:scale-[1.035] sm:w-auto"
-            >
-              <WhatsAppIcon className="h-[18px] w-[18px]" />
-              {t.hero.ctaPrimary}
-            </a>
-            <a
-              href="#flujo"
-              className="glass w-full rounded-full px-8 py-4 text-sm font-medium text-slate-200 transition-colors hover:text-white sm:w-auto"
-            >
-              {t.hero.ctaSecondary}
-            </a>
-          </div>
-        </Reveal>
+        <div className="rise rise-3 mt-11 flex w-full flex-col items-center justify-center gap-3 sm:w-auto sm:flex-row">
+          <a
+            href={waLink(t.wa.demo)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex w-full items-center justify-center gap-2.5 rounded-full bg-[#25D366] px-8 py-4 text-sm font-medium text-[#052e16] transition-transform hover:scale-[1.035] sm:w-auto"
+          >
+            <WhatsAppIcon className="h-[18px] w-[18px]" />
+            {t.hero.ctaPrimary}
+          </a>
+          <a
+            href="#flujo"
+            className="glass w-full rounded-full px-8 py-4 text-sm font-medium text-slate-200 transition-colors hover:text-white sm:w-auto"
+          >
+            {t.hero.ctaSecondary}
+          </a>
+        </div>
 
-        <Reveal delay={340}>
-          <p className="mt-7 text-[13px] text-slate-500">{t.hero.note}</p>
-        </Reveal>
+        <p className="rise rise-4 mt-7 text-[13px] text-slate-500">
+          {t.hero.note}
+        </p>
 
-        <Reveal delay={430} className="w-full">
-          <div className="mt-20 grid w-full grid-cols-1 gap-px overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.04] sm:grid-cols-3">
-            {t.hero.metrics.map((m) => (
-              <div key={m.label} className="bg-ink-950/60 px-6 py-7">
-                <p className="text-2xl font-semibold tracking-tight text-white">
-                  {m.value}
-                </p>
-                <p className="mt-1.5 text-[13px] text-slate-500">{m.label}</p>
-              </div>
-            ))}
-          </div>
-        </Reveal>
+        <div className="rise rise-5 mt-20 grid w-full grid-cols-1 gap-px overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.04] sm:grid-cols-3">
+          {t.hero.metrics.map((m) => (
+            <div key={m.label} className="bg-ink-950/60 px-6 py-7">
+              <p className="text-2xl font-semibold tracking-tight text-white">
+                {m.value}
+              </p>
+              <p className="mt-1.5 text-[13px] text-slate-500">{m.label}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

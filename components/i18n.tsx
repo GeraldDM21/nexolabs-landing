@@ -24,17 +24,16 @@ const I18nContext = createContext<Ctx | null>(null);
 export function I18nProvider({ children }: { children: React.ReactNode }) {
   const [locale, setLocaleState] = useState<Locale>("es");
 
-  // Al montar: preferencia guardada, si no el idioma del navegador
+  // Al montar: solo la preferencia guardada.
+  // A proposito NO detectamos navigator.language: el mercado es Costa
+  // Rica, el metadata esta en espanol, y si el rastreador de Google
+  // llega con idioma ingles terminaria indexando contenido en ingles
+  // bajo un titulo en espanol.
   useEffect(() => {
     const saved = window.localStorage.getItem(STORAGE_KEY) as Locale | null;
 
     if (saved === "es" || saved === "en") {
       setLocaleState(saved);
-      return;
-    }
-
-    if (navigator.language?.toLowerCase().startsWith("en")) {
-      setLocaleState("en");
     }
   }, []);
 
