@@ -26,7 +26,7 @@ export default function Problems() {
             <Reveal key={item.title} delay={i * 110}>
               <TiltCard className="h-full" strength={7}>
                 <article className="glass h-full rounded-2xl p-8 transition-colors duration-500 hover:border-white/[0.16]">
-                  <span className="font-mono text-xs text-slate-600">
+                  <span className="font-mono text-xs text-slate-500">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <h3 className="mt-5 text-lg font-medium leading-snug text-white">

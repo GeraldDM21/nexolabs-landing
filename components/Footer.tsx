@@ -42,7 +42,7 @@ export default function Footer() {
 
         <div className="hairline my-8" />
 
-        <p className="text-[12.5px] text-slate-600">
+        <p className="text-[12.5px] text-slate-500">
           &copy; {new Date().getFullYear()} Nexolabs. {t.footer.rights}
         </p>
       </div>

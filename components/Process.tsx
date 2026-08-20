@@ -26,31 +26,36 @@ export default function Process() {
 
         <ol className="relative mt-16 space-y-px">
           {t.process.steps.map((step, i) => (
-            <Reveal key={step.index} delay={i * 110}>
-              <li className="group relative grid gap-5 border-t border-white/[0.07] py-9 lg:grid-cols-[auto_1fr_2fr] lg:items-start lg:gap-10">
-                <div className="flex items-center gap-4 lg:w-24">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-full border border-brand-500/25 bg-ink-950 font-mono text-xs text-brand-400 transition-colors duration-500 group-hover:border-brand-400/60">
-                    {step.index}
-                  </span>
-                  <span className="font-mono text-[11px] uppercase tracking-wider text-slate-600 lg:hidden">
-                    {step.duration}
-                  </span>
-                </div>
+            <li
+              key={step.index}
+              className="group relative border-t border-white/[0.07] py-9"
+            >
+              <Reveal delay={i * 110}>
+                <div className="grid gap-5 lg:grid-cols-[auto_1fr_2fr] lg:items-start lg:gap-10">
+                  <div className="flex items-center gap-4 lg:w-24">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-full border border-brand-500/25 bg-ink-950 font-mono text-xs text-brand-400 transition-colors duration-500 group-hover:border-brand-400/60">
+                      {step.index}
+                    </span>
+                    <span className="font-mono text-[11px] uppercase tracking-wider text-slate-500 lg:hidden">
+                      {step.duration}
+                    </span>
+                  </div>
 
-                <div>
-                  <h3 className="text-xl font-medium tracking-tight text-white">
-                    {step.title}
-                  </h3>
-                  <span className="mt-2 hidden font-mono text-[11px] uppercase tracking-wider text-slate-600 lg:block">
-                    {step.duration}
-                  </span>
-                </div>
+                  <div>
+                    <h3 className="text-xl font-medium tracking-tight text-white">
+                      {step.title}
+                    </h3>
+                    <span className="mt-2 hidden font-mono text-[11px] uppercase tracking-wider text-slate-500 lg:block">
+                      {step.duration}
+                    </span>
+                  </div>
 
-                <p className="text-[14.5px] leading-relaxed text-slate-400">
-                  {step.body}
-                </p>
-              </li>
-            </Reveal>
+                  <p className="text-[14.5px] leading-relaxed text-slate-400">
+                    {step.body}
+                  </p>
+                </div>
+              </Reveal>
+            </li>
           ))}
         </ol>
 

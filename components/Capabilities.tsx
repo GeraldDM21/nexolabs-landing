@@ -29,7 +29,7 @@ export default function Capabilities() {
                   <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-white">
                     {block.group}
                   </h3>
-                  <span className="font-mono text-[11px] text-slate-600">
+                  <span className="font-mono text-[11px] text-slate-500">
                     {String(block.items.length).padStart(2, "0")}
                   </span>
                 </div>

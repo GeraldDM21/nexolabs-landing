@@ -32,8 +32,8 @@ export default function Flow() {
 
           <ol className="relative grid gap-5 md:grid-cols-2 lg:grid-cols-4">
             {t.flow.steps.map((step, i) => (
-              <Reveal key={step.step} delay={i * 130}>
-                <li className="glass h-full rounded-2xl p-7">
+              <li key={step.step} className="glass h-full rounded-2xl p-7">
+                <Reveal delay={i * 130}>
                   <div className="flex items-center gap-3">
                     <span className="flex h-9 w-9 items-center justify-center rounded-full border border-brand-500/30 bg-ink-950 font-mono text-xs text-brand-400">
                       {step.step}
@@ -45,8 +45,8 @@ export default function Flow() {
                   <p className="mt-2.5 text-[14px] leading-relaxed text-slate-400">
                     {step.body}
                   </p>
-                </li>
-              </Reveal>
+                </Reveal>
+              </li>
             ))}
           </ol>
         </div>

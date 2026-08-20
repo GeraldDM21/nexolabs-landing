@@ -6,7 +6,7 @@ import { useI18n } from "./i18n";
 type Estado = "idle" | "enviando" | "ok" | "error";
 
 const inputBase =
-  "w-full rounded-xl border border-white/[0.09] bg-white/[0.03] px-4 py-3 text-[14.5px] text-white placeholder:text-slate-600 outline-none transition-colors focus:border-brand-500/50 focus:bg-white/[0.05]";
+  "w-full rounded-xl border border-white/[0.09] bg-white/[0.03] px-4 py-3 text-[14.5px] text-white placeholder:text-slate-500 outline-none transition-colors focus:border-brand-500/50 focus:bg-white/[0.05]";
 
 function Campo({
   label,
