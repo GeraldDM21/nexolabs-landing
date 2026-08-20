@@ -32,7 +32,7 @@ export const dict = {
       body: "Automatizamos la atención y las ventas de tu negocio con agentes de IA conectados a WhatsApp, a tu inventario y a tu punto de venta. Contestan chats, arman órdenes, coordinan entregas, generan reportes y gestionan turnos, sin que nadie tenga que estar pendiente.",
       ctaPrimary: "Contáctenos",
       ctaSecondary: "Ver cómo funciona",
-      note: "Te contesta el mismo agente que trabajaría en tu negocio",
+      note: "Te respondemos el mismo día",
       metrics: [
         { value: "24/7", label: "Operando sin pausa" },
         { value: "Segundos", label: "De consulta a orden creada" },
@@ -298,9 +298,9 @@ export const dict = {
         "Diagnóstico inicial sin costo",
         "Sin contratos de permanencia",
       ],
-      waTitle: "¿Prefieres verlo funcionando?",
+      waTitle: "¿Prefieres escribirnos directo?",
       waBody:
-        "Escríbenos por WhatsApp y te atiende el mismo agente que trabajaría en tu negocio. El chat es la demo.",
+        "Contáctanos por WhatsApp y conversamos sobre tu negocio. Te respondemos el mismo día.",
       waCta: "Contáctenos",
       emailLabel: "También por correo:",
     },
@@ -357,7 +357,7 @@ export const dict = {
     },
 
     float: {
-      hint: "Habla con el agente y velo trabajar",
+      hint: "¿Hablamos por WhatsApp?",
       aria: "Escríbenos por WhatsApp",
     },
 
@@ -397,7 +397,7 @@ export const dict = {
       body: "We automate your business's customer service and sales with AI agents wired into WhatsApp, your inventory and your point of sale. They answer chats, create orders, coordinate deliveries, generate reports and manage shifts, without anyone having to keep watch.",
       ctaPrimary: "Contact us",
       ctaSecondary: "See how it works",
-      note: "You'll be talking to the same agent that would work in your business",
+      note: "We reply the same day",
       metrics: [
         { value: "24/7", label: "Running without pause" },
         { value: "Seconds", label: "From question to order" },
@@ -651,9 +651,9 @@ export const dict = {
         "Initial assessment at no cost",
         "No lock-in contracts",
       ],
-      waTitle: "Rather see it working?",
+      waTitle: "Rather message us directly?",
       waBody:
-        "Message us on WhatsApp and you'll be answered by the same agent that would work in your business. The chat is the demo.",
+        "Reach us on WhatsApp and let's talk about your business. We reply the same day.",
       waCta: "Contact us",
       emailLabel: "Or by email:",
     },
@@ -710,7 +710,7 @@ export const dict = {
     },
 
     float: {
-      hint: "Talk to the agent and watch it work",
+      hint: "Let's talk on WhatsApp",
       aria: "Message us on WhatsApp",
     },
 
