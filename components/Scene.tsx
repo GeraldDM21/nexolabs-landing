@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 
@@ -221,20 +221,6 @@ function Rings({ segments }: { segments: number }) {
 /* ------------------------------ export ----------------------------- */
 
 export default function Scene() {
-  const [profile, setProfile] = useState<"mobile" | "desktop" | null>(null);
-  const [reduced, setReduced] = useState(false);
-
-  useEffect(() => {
-    setProfile(window.innerWidth < 900 ? "mobile" : "desktop");
-    setReduced(
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches,
-    );
-  }, []);
-
-  // En movil y con movimiento reducido no montamos WebGL:
-  // el costo de fillrate hace que el scroll se trabe.
-  if (profile === null || reduced || profile === "mobile") return null;
-
   return (
     <Canvas
       camera={{ position: [0, 0, 9.5], fov: 46 }}

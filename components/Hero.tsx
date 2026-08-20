@@ -1,29 +1,77 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { useEffect, useState } from "react";
 import { waLink } from "./config";
 import { useI18n } from "./i18n";
 import { Reveal } from "./ui";
 import StaticNetwork from "./StaticNetwork";
 import { WhatsAppIcon } from "./WhatsAppIcon";
 
+/* three.js pesa cerca de 600 KB. Con dynamic + ssr:false el paquete
+   solo se descarga cuando <Scene /> se renderiza de verdad, asi que
+   en movil nunca llega a bajarse. */
 const Scene = dynamic(() => import("./Scene"), { ssr: false });
+
+/* Decide si corresponde cargar la escena 3D y espera a que el navegador
+   este libre, para no competir con el primer pintado de la pagina. */
+function useScene3D() {
+  const [listo, setListo] = useState(false);
+
+  useEffect(() => {
+    const grande = window.matchMedia("(min-width: 1024px)").matches;
+    const puntero = window.matchMedia("(pointer: fine)").matches;
+    const reducido = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    if (!grande || !puntero || reducido) return;
+
+    const activar = () => setListo(true);
+
+    const idle = (
+      window as typeof window & {
+        requestIdleCallback?: (
+          cb: () => void,
+          o?: { timeout: number },
+        ) => number;
+      }
+    ).requestIdleCallback;
+
+    if (typeof idle === "function") {
+      idle(activar, { timeout: 2500 });
+      return;
+    }
+
+    const t = setTimeout(activar, 1200);
+    return () => clearTimeout(t);
+  }, []);
+
+  return listo;
+}
 
 export default function Hero() {
   const { t } = useI18n();
+  const escena3D = useScene3D();
 
   return (
     <section
       id="top"
       className="noise relative min-h-[100svh] overflow-hidden px-6 pb-24 pt-36 lg:px-10"
     >
-      {/* capa 3D solo en escritorio */}
-      <div className="absolute inset-0 z-0 hidden lg:block">
-        <Scene />
-      </div>
+      {/* capa 3D: escritorio, y solo despues del primer pintado */}
+      {escena3D && (
+        <div className="absolute inset-0 z-0 hidden lg:block">
+          <Scene />
+        </div>
+      )}
 
-      {/* version estatica en movil */}
-      <div className="absolute inset-x-0 top-24 z-0 mx-auto h-[380px] w-full max-w-md opacity-60 lg:hidden">
+      {/* red estatica: se ve de inmediato y se desvanece si entra la 3D */}
+      <div
+        className={`absolute inset-x-0 top-24 z-0 mx-auto h-[380px] w-full max-w-md transition-opacity duration-700 lg:top-12 lg:h-[600px] lg:max-w-2xl ${
+          escena3D ? "opacity-0" : "opacity-60"
+        }`}
+      >
         <StaticNetwork />
       </div>
 
